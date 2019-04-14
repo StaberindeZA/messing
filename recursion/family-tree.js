@@ -28,8 +28,11 @@ class FamilyTree {
   }
 
   log() {
-    let str = `${'-'.repeat(this.depth * 2 + 2)} ${this.value}\n`;
+    let str = `<p>${'-'.repeat(this.depth * 2 + 2)} ${this.value}</p>\n`;
 
+    const currentContainer = findContainer(this.depth);
+    currentContainer.appendChild(addFamilyNode(this.value));
+    
     //base case
     if (this.children.length === 0) {
       return str;
@@ -44,7 +47,7 @@ class FamilyTree {
   }
 
   log2() {
-    let str =  `${'-'.repeat(this.depth * 2 + 2)} ${this.value}\n`;
+    let str =  `<p>${'-'.repeat(this.depth * 2 + 2)} ${this.value}</p>\n`;
     let tempStr = '';
 
     if(this.children.length === 0 ) {
@@ -69,9 +72,9 @@ class FamilyTree {
 function createGenerationContainer(depth) {
   const famContainer = document.createElement('div');
   famContainer.className = 'form-container';
-  famContainer.dataset.depth = '1'
+  famContainer.dataset.depth = depth;
 
-  famContainer.appendChild(addFamilyNode('name'));
+  // famContainer.appendChild(addFamilyNode('name'));
 
   return famContainer;
 }
@@ -99,6 +102,32 @@ function buildDisplay(currentNode, depth) {
 
 }
 
+function findContainer(depth) {
+  //Check DOM container for famContainer
+  //If found return
+  const allFamContainer = container.querySelectorAll('.form-container');
+  let foundFamContainer = {};
+  let nothing = '';
+
+  allFamContainer.forEach(famContainer => famContainer.dataset.depth == depth ? foundFamContainer = famContainer : nothing ='');
+
+  if(!(Object.entries(foundFamContainer).length === 0 && foundFamContainer.constructor === Object)) {
+    return foundFamContainer
+  } else {
+    //If not found, create and add to container
+    const famContainer = document.createElement('div');
+    famContainer.className = 'form-container';
+    famContainer.dataset.depth = depth;
+
+    container.appendChild(famContainer);
+
+    return famContainer;
+  }
+
+}
+
+const container = document.querySelector('.container');
+
 const szwajkowskis = new FamilyTree('Pop');
 
 szwajkowskis.insert('Mike');
@@ -113,17 +142,20 @@ mikesFamily.insert('Cas');
 mikesFamily.insert('George');
 mikesFamily.insert('Lear');
 
-// const amysFamily = szwajkowskis.findMember('Amy');
+const amysFamily = szwajkowskis.findMember('Amy');
 
-// amysFamily.insert('Henry');
-// amysFamily.insert('Vivian');
+amysFamily.insert('Henry');
+amysFamily.insert('Vivian');
 
 const log = szwajkowskis.log();
-//console.log(`${log}`);
+// console.log(`${log}`);
+console.log(log);
 
-const container = document.querySelector('.container');
+// container.appendChild(createGenerationContainer(0));
+// container.appendChild(createGenerationContainer(1));
 
-container.innerHTML = '';
-const tempBuild = (buildDisplay(szwajkowskis,0));
+// console.log(findContainer(2));
+//container.innerHTML = log;
+//const tempBuild = (buildDisplay(szwajkowskis,0));
 
 // module.exports = FamilyTree;
