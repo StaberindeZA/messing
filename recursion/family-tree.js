@@ -65,6 +65,40 @@ class FamilyTree {
     
   }
 }
+
+function createGenerationContainer(depth) {
+  const famContainer = document.createElement('div');
+  famContainer.className = 'form-container';
+  famContainer.dataset.depth = '1'
+
+  famContainer.appendChild(addFamilyNode('name'));
+
+  return famContainer;
+}
+
+function addFamilyNode(name) {
+  const famName = document.createElement('p');
+  famName.innerText = name;
+  famName.className = 'fam-name';
+
+  return famName;
+}
+
+function buildDisplay(currentNode, depth) {
+
+  const memberContainer = createGenerationContainer(depth);
+  memberContainer.appendChild(addFamilyNode(currentNode.name));
+
+  if(currentNode.children.length === 0) {
+    return memberContainer;
+  } else {
+    currentNode.children.forEach( child => {
+      buildDisplay(child, depth + 1);
+    })
+  }
+
+}
+
 const szwajkowskis = new FamilyTree('Pop');
 
 szwajkowskis.insert('Mike');
@@ -79,12 +113,17 @@ mikesFamily.insert('Cas');
 mikesFamily.insert('George');
 mikesFamily.insert('Lear');
 
-const amysFamily = szwajkowskis.findMember('Amy');
+// const amysFamily = szwajkowskis.findMember('Amy');
 
-amysFamily.insert('Henry');
-amysFamily.insert('Vivian');
+// amysFamily.insert('Henry');
+// amysFamily.insert('Vivian');
 
 const log = szwajkowskis.log();
-console.log(`${log}`);
+//console.log(`${log}`);
+
+const container = document.querySelector('.container');
+
+container.innerHTML = '';
+const tempBuild = (buildDisplay(szwajkowskis,0));
 
 // module.exports = FamilyTree;
