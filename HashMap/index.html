@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Binary search tree</title>
+</head>
+<body>
+  <p>Check out the console.</p>
+
+  <div class="container"></div>
+
+  <script>
+  
+    class HashMap {
+      constructor() {
+        this.hash = [];
+      }
+
+      put(key, value) {
+
+        const index = this.hash.findIndex(element => element[0] == key);
+        index === -1 ? this.hash.push([key, value]) : this.hash[index][1] = value;
+
+      }
+
+      get(key) {
+        const entry = this.hash.find(element => element[0] == key)
+        if(entry === undefined) {
+          return 'Not found';
+        } else {
+          return entry[1];
+        }
+      }
+    }
+
+    let hash = new HashMap();
+
+    hash.put('peter', 'jackson');
+    hash.put('james', 'cameron');
+    hash.put('gelmo', 'deltorro');
+
+    const found = hash.get('pater');
+    console.log(found);
+    const foundAgain = hash.get('peter');
+    console.log(foundAgain);
+
+    hash.put('peter', 'parker');
+    const foundLastTime = hash.get('peter');
+    console.log(foundLastTime);
+  
+  </script>
+
+</body>
+</html>
