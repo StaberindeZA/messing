@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script>
+  function outer() {
+    var b = 10;
+    function inner() {
+      var a = 20;
+      console.log(a+b);
+    }
+    return inner;
+  } 
+
+var X = outer();
+var Y = outer();
+
+</script>
+
+
+</body>
+</html>
