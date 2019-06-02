@@ -1,6 +1,5 @@
-// var Addition = require('./Addition.js');
-// console.log(Addition.AddNumber(1,2));
+var person = require('./NodeTutorial.js');
 
-var localTutor = require('./NodeTutorial.js');
-localTutor.NodeTutorial();
-localTutor.NodeTutorial.pTutor();
+var person1 = new person('James', 'Bond');
+
+console.log(person1.fullName());
