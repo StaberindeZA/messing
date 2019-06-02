@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Binary search tree</title>
+</head>
+<body>
+  <p>Check out the console.</p>
+
+<script>
+  new Promise((resolve, reject) => {
+    console.log('Initial');
+
+    resolve();
+  })
+  .then(() => {
+    throw new Error('Something failed');
+
+    console.log('do this');
+  })
+  .then(() => {
+    console.log('but what if I want to do this agian');
+  })
+  .catch(() => {
+    console.log('do that');
+  })
+  .then(() => {
+    console.log('do this other thing again');
+  });
+</script>
+
+</body>
+</html>
